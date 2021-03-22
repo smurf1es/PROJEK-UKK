@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from 'moment';
 
 const commentSchema = mongoose.Schema(
   {
@@ -21,6 +22,10 @@ const commentSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
+    },
+    exactCreatedDate: {
+      type: String,
+      default: moment(Date.now()).format('DD MMM YYYY'),
     },
   },
   { timestamps: true }
@@ -52,10 +57,12 @@ const reportSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    exactCreatedDate: {
+      type: String,
+      default: moment(Date.now()).format('DD MMM YYYY'),
+    },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const Report = mongoose.model('Report', reportSchema);

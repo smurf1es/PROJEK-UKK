@@ -70,9 +70,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LIST_RESET });
 };
 
-export const register = (name, username, nik, phoneNumber, password) => async (
-  dispatch
-) => {
+export const register = (user) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -84,11 +82,7 @@ export const register = (name, username, nik, phoneNumber, password) => async (
       },
     };
 
-    const { data } = await axios.post(
-      '/api/users',
-      { name, username, nik, phoneNumber, password },
-      config
-    );
+    const { data } = await axios.post('/api/users', user, config);
 
     dispatch({
       type: USER_REGISTER_SUCCESS,

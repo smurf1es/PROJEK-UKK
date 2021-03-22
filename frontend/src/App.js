@@ -9,6 +9,7 @@ const Home = lazy(() => import('./pages/HomePage'));
 const NotFound = lazy(() => import('./pages/NotFoundPage'));
 const Comment = lazy(() => import('./pages/CommentPage'));
 const Officer = lazy(() => import('./pages/OfficerListPage'));
+const GenReport = lazy(() => import('./pages/GenerateReportPage'));
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Suspense fallback={<p>Loading...</p>}>
         <Header />
         <Switch>
+          <Route path="/admin" component={GenReport} />
           <Route path="/report/:id/comment" component={Comment} />
           <Route path="/officer/list" component={Officer} />
           <Route path="/login" component={Login} />

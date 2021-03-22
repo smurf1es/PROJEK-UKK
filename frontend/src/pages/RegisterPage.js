@@ -66,7 +66,7 @@ const RegisterPage = ({ location, history }) => {
           phoneNumber: '',
         }}
         onSubmit={({ name, nik, username, password, phoneNumber }, actions) => {
-          dispatch(register(name, username, password, nik, phoneNumber));
+          dispatch(register({ name, username, password, nik, phoneNumber }));
         }}
       >
         {() => (

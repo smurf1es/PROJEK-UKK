@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { Alert, AlertIcon, Spinner } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/layout';
-import Timeline from '../components/Timeline';
-import ReportModal from '../components/ReportModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReports } from '../actions/reportActions';
+import Feed from '../components/Feed/Feed';
 
 const HomePage = ({ history }) => {
   const dispatch = useDispatch();
@@ -77,8 +76,7 @@ const HomePage = ({ history }) => {
           {errorCreate}
         </Alert>
       )}
-      <ReportModal />
-      <Timeline />
+      <Feed />
     </Flex>
   );
 };
