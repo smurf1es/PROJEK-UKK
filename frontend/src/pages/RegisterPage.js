@@ -14,7 +14,7 @@ import {
   Link,
 } from '@chakra-ui/react';
 import { Form, Formik, Field } from 'formik';
-import { Link as ReachLink } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../actions/userActions';
 import * as Yup from 'yup';
@@ -160,7 +160,7 @@ const RegisterPage = ({ location, history }) => {
                 <Text>
                   <Link
                     color="green.600"
-                    as={ReachLink}
+                    as={ReactLink}
                     to={redirect ? `/login?redirect=${redirect}` : '/login'}
                   >
                     Login

@@ -5,7 +5,7 @@ import ReportSender from '../ReportSender/ReportSender';
 import Post from '../Post/Post';
 import { fetchReports } from '../../actions/reportActions';
 import { Spinner } from '@chakra-ui/spinner';
-import { isEmpty } from 'lodash';
+import { isEmpty, isNil } from 'lodash';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { Spacer, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
@@ -38,9 +38,8 @@ function Feed() {
           </Button>
         </Alert>
       )}
-      {(userInfo && !userInfo.isAdmin) || (userInfo && !userInfo.isOfficer) ? (
-        <ReportSender />
-      ) : null}
+      {userInfo && isNil(userInfo.isAdmin) && <ReportSender />}
+      {userInfo && isNil(userInfo.isOfficer) && <ReportSender />}
       {!loading &&
         !isEmpty(reports) &&
         reports.map((report) => <Post key={report._id} data={report} />)}

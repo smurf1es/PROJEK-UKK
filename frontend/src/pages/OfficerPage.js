@@ -13,8 +13,8 @@ const GenerateReportPage = ({ history }) => {
   const { loading: loadingUserInfo, userInfo } = userLogin;
 
   useEffect(() => {
-    if (!loadingUserInfo && !userInfo) history.push('/login');
-  }, [loadingUserInfo, history, userInfo]);
+    if (!userInfo) history.push('/login');
+  }, [history, userInfo]);
 
   return (
     <Chakra.Container maxW="container.md">
