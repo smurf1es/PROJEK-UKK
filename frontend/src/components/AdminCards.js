@@ -2,36 +2,33 @@ import * as Chakra from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
-import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
+import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 import AssistantIcon from '@material-ui/icons/Assistant';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import { Tooltip } from '@material-ui/core';
 
 export default function AdminCards() {
   const reportList = useSelector((state) => state.reportList);
-  const { loading, error, reports } = reportList;
+  const { reports } = reportList;
 
   const verifiedReports = reports.filter((report) => report.reportStatus === 1);
   const doneReports = reports.filter((report) => report.reportStatus === 2);
 
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <div className="w-25 rounded border">
+    <Chakra.Flex alignItems="center" justifyContent="center" my="12">
+      <Chakra.Box border="1px" borderRadius="md">
         <Chakra.Box p="6">
           <Chakra.Box d="flex" alignItems="baseline">
             <Chakra.Stat>
               <Chakra.Flex alignItems="center">
                 <Chakra.Badge
                   mr="2"
-                  colorScheme="gray"
+                  colorScheme="red"
                   textTransform="capitalize"
                 >
-                  <Tooltip title="Klik untuk mendapatkan data">
-                    <Chakra.StatLabel>Total Laporan</Chakra.StatLabel>
-                  </Tooltip>
+                  <Chakra.StatLabel>Total Laporan</Chakra.StatLabel>
                 </Chakra.Badge>
                 <Chakra.Box>
-                  <AssignmentLateIcon />
+                  <AssignmentReturnedIcon />
                 </Chakra.Box>
               </Chakra.Flex>
               <Chakra.StatNumber>
@@ -41,7 +38,7 @@ export default function AdminCards() {
                   <Chakra.Spinner size="sm" />
                 )}
               </Chakra.StatNumber>
-              <Chakra.StatHelpText display="inline-flex">
+              <Chakra.StatHelpText textAlign="right">
                 <Chakra.Text mr="1">Terakhir dihitung otomatis</Chakra.Text>
                 <Chakra.Text fontWeight="bold">
                   {moment(Date.now()).format('DD MMM')}
@@ -50,9 +47,9 @@ export default function AdminCards() {
             </Chakra.Stat>
           </Chakra.Box>
         </Chakra.Box>
-      </div>
+      </Chakra.Box>
 
-      <div className="w-25 rounded border mx-5">
+      <Chakra.Box mx="4" border="1px" borderRadius="md">
         <Chakra.Box p="6">
           <Chakra.Box d="flex" alignItems="baseline">
             <Chakra.Stat>
@@ -62,9 +59,7 @@ export default function AdminCards() {
                   colorScheme="telegram"
                   textTransform="capitalize"
                 >
-                  <Tooltip title="Klik untuk mendapatkan data">
-                    <Chakra.StatLabel>Laporan Terverifikasi</Chakra.StatLabel>
-                  </Tooltip>
+                  <Chakra.StatLabel>Laporan Terverifikasi</Chakra.StatLabel>
                 </Chakra.Badge>
                 <Chakra.Box>
                   <AssistantIcon />
@@ -77,7 +72,7 @@ export default function AdminCards() {
                   <Chakra.Spinner size="sm" />
                 )}
               </Chakra.StatNumber>
-              <Chakra.StatHelpText display="inline-flex">
+              <Chakra.StatHelpText textAlign="right">
                 <Chakra.Text mr="1">Terakhir dihitung otomatis</Chakra.Text>
                 <Chakra.Text fontWeight="bold">
                   {moment(Date.now()).format('DD MMM')}
@@ -86,9 +81,9 @@ export default function AdminCards() {
             </Chakra.Stat>
           </Chakra.Box>
         </Chakra.Box>
-      </div>
+      </Chakra.Box>
 
-      <div className="w-25 rounded border">
+      <Chakra.Box border="1px" borderRadius="md">
         <Chakra.Box p="6">
           <Chakra.Box d="flex" alignItems="baseline">
             <Chakra.Stat>
@@ -98,9 +93,7 @@ export default function AdminCards() {
                   colorScheme="green"
                   textTransform="capitalize"
                 >
-                  <Tooltip title="Klik untuk mendapatkan data">
-                    <Chakra.StatLabel>Laporan Selesai</Chakra.StatLabel>
-                  </Tooltip>
+                  <Chakra.StatLabel>Laporan Selesai</Chakra.StatLabel>
                 </Chakra.Badge>
                 <Chakra.Box>
                   <AssignmentTurnedInIcon />
@@ -113,7 +106,7 @@ export default function AdminCards() {
                   <Chakra.Spinner size="sm" />
                 )}
               </Chakra.StatNumber>
-              <Chakra.StatHelpText display="inline-flex">
+              <Chakra.StatHelpText textAlign="right">
                 <Chakra.Text mr="1">Terakhir dihitung otomatis</Chakra.Text>
                 <Chakra.Text fontWeight="bold">
                   {moment(Date.now()).format('DD MMM')}
@@ -122,7 +115,7 @@ export default function AdminCards() {
             </Chakra.Stat>
           </Chakra.Box>
         </Chakra.Box>
-      </div>
-    </div>
+      </Chakra.Box>
+    </Chakra.Flex>
   );
 }

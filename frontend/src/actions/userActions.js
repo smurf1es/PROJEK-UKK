@@ -25,7 +25,6 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
 } from '../constants/userConstants';
-// import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
 
 export const login = (username, password) => async (dispatch) => {
   try {
@@ -66,7 +65,6 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
-  // dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
 };
 
@@ -105,40 +103,6 @@ export const register = (user) => async (dispatch) => {
     });
   }
 };
-
-// export const getUserProfile = () => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: USER_DETAILS_REQUEST,
-//     });
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState();
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     };
-
-//     const { data } = await axios.get(`/api/users/profile`, config);
-
-//     dispatch({
-//       type: USER_DETAILS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: USER_DETAILS_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
 
 export const getUserById = (id) => async (dispatch, getState) => {
   try {

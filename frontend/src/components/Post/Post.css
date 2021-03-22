@@ -41,6 +41,7 @@
   color: gray;
   cursor: pointer;
   padding: 15px;
+  text-decoration: none;
 }
 
 .post__option {
@@ -55,11 +56,20 @@
   margin-left: 10px;
 }
 
+.post__option > b {
+  text-decoration: none;
+}
+
 .post__option:hover {
   background-color: #eff2f5;
   border-radius: 10px;
 }
 
-.post__option__link {
-  text-decoration: none;
+.post__option .post__option__status {
+  display: flex;
+  align-items: center;
+}
+
+.post__tooltip {
+  cursor: default;
 }

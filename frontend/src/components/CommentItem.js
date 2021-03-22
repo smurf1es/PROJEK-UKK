@@ -44,7 +44,7 @@ const CommentItem = ({ comment, reportId }) => {
         userInfo._id === comment.user && (
           <Fragment>
             <Spacer />
-            <Tag onClick={deleteHandler} as="button">
+            <Tag colorScheme="red" onClick={deleteHandler} as="button">
               <DeleteIcon />
             </Tag>
           </Fragment>

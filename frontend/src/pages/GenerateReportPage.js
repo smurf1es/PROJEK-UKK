@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import * as Chakra from '@chakra-ui/react';
-import { Button, Card, Container } from 'react-bootstrap';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import moment from 'moment';
@@ -124,29 +123,40 @@ const GenerateReportPage = ({ history }) => {
   const generateDoc = pdfMake.createPdf(docDefinition);
 
   return (
-    <Container>
-      <div className="mt-5">
-        <AdminCards />
-      </div>
+    <Chakra.Container maxW="container.md">
+      <AdminCards />
 
-      <Chakra.Box mt="12" alignItems="center" display="flex">
-        <Chakra.Box flex="0.1">
+      <Chakra.Box
+        justifyContent="flex-start"
+        mt="12"
+        alignItems="center"
+        display="flex"
+      >
+        <Chakra.Box>
           <Chakra.Text fontWeight="bold">Aksi :</Chakra.Text>
         </Chakra.Box>
-        <Chakra.Box flex="0.1">
-          <Button onClick={() => generateDoc.open()}>Preview</Button>
-        </Chakra.Box>
+        <Chakra.Flex ml="4" alignItems="center">
+          <Chakra.Box mr="2">
+            <Chakra.Button
+              color="facebook.500"
+              variant="link"
+              onClick={() => generateDoc.open()}
+            >
+              Preview
+            </Chakra.Button>
+          </Chakra.Box>
 
-        <Chakra.Box>
-          <Button
-            onClick={() => generateDoc.download(`Laporan_${formatDate}`)}
-            variant="danger"
-          >
-            Download
-          </Button>
-        </Chakra.Box>
+          <Chakra.Box>
+            <Chakra.Button
+              onClick={() => generateDoc.download(`Laporan_${formatDate}`)}
+              colorScheme="facebook"
+            >
+              Download
+            </Chakra.Button>
+          </Chakra.Box>
+        </Chakra.Flex>
       </Chakra.Box>
-    </Container>
+    </Chakra.Container>
   );
 };
 

@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <Flex w="100" color="white" h="75px" bg="facebook.300">
+    <Flex w="100" color="white" h="75px" bg="facebook.500">
       <Container alignItems="center" d="flex" maxW="6xl">
         <Heading size="md">Lapor.in</Heading>
         <Spacer />
@@ -25,6 +25,11 @@ const Header = () => {
               {userInfo.isAdmin && (
                 <Link className="mr-3" to="/admin">
                   Admin
+                </Link>
+              )}
+              {userInfo.isOfficer && (
+                <Link className="mr-3" to="/officer">
+                  Officer
                 </Link>
               )}
               <Button color="white" variant="outline" onClick={logoutHandler}>

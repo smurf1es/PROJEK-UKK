@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import { Text, Link } from '@chakra-ui/react';
 import React from 'react';
 import moment from 'moment';
 import './Post.css';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { ExpandMoreOutlined } from '@material-ui/icons';
+import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
+import AssistantIcon from '@material-ui/icons/Assistant';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import { Button } from '@chakra-ui/button';
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
@@ -14,8 +16,9 @@ import {
 } from '../../actions/reportActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '@chakra-ui/avatar';
-import { Badge, Spacer } from '@chakra-ui/layout';
+import { Badge, Box, Spacer } from '@chakra-ui/layout';
 import AdminActionsButton from '../AdminActionsButton';
+import { Tooltip } from '@material-ui/core';
 
 function Post({
   data: {
@@ -104,26 +107,43 @@ function Post({
           </div>
 
           <div className="post__options">
-            <div className="post__option">
-              <ChatBubbleOutlineIcon />
-              <Link
-                className="post__option__link"
+            <Tooltip title="Klik untuk menuju halaman komentar">
+              <Box
+                as={ReactRouterLink}
                 to={`/report/${_id}/comment`}
+                className="post__option"
               >
-                <p>({comments.length}) Komentar</p>
-              </Link>
-            </div>
-            <div className="post__option">
-              <Badge
-                colorScheme={
-                  (report.index === 0 && 'red') ||
-                  (report.index === 1 && 'linkedin') ||
-                  (report.index === 2 && 'cyan')
-                }
-              >
-                {report.text}
-              </Badge>
-            </div>
+                <ChatBubbleOutlineIcon />
+                <p>
+                  <b>({comments.length})</b> Tanggapan
+                </p>
+              </Box>
+            </Tooltip>
+            <Tooltip
+              className="post__tooltip"
+              title={
+                (report.index === 0 && 'Laporan telah diajukan') ||
+                (report.index === 1 && 'Laporan telah diverifikasi') ||
+                (report.index === 2 && 'Laporan telah ditangani')
+              }
+            >
+              <div className="post__option">
+                <Badge
+                  colorScheme={
+                    (report.index === 0 && 'red') ||
+                    (report.index === 1 && 'linkedin') ||
+                    (report.index === 2 && 'cyan')
+                  }
+                >
+                  <div className="post__option__status">
+                    {(report.index === 0 && <AssignmentReturnedIcon />) ||
+                      (report.index === 1 && <AssistantIcon />) ||
+                      (report.index === 2 && <AssignmentTurnedInIcon />)}
+                    <p>{report.text}</p>
+                  </div>
+                </Badge>
+              </div>
+            </Tooltip>
           </div>
         </div>
       ))}

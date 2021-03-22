@@ -6,6 +6,9 @@ import Post from '../Post/Post';
 import { fetchReports } from '../../actions/reportActions';
 import { Spinner } from '@chakra-ui/spinner';
 import { isEmpty } from 'lodash';
+import { Alert, AlertIcon } from '@chakra-ui/alert';
+import { Spacer, Text } from '@chakra-ui/layout';
+import { Button } from '@chakra-ui/button';
 
 function Feed() {
   const dispatch = useDispatch();
@@ -15,18 +18,33 @@ function Feed() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const focusHandler = () => {
+    document.getElementById('messageSender__input').focus();
+  };
+
   useEffect(() => {
     dispatch(fetchReports());
   }, [dispatch]);
 
-  return !loading ? (
+  return (
     <div className="feed">
-      {userInfo && userInfo.isAdmin === false ? <ReportSender /> : null}
-      {!isEmpty(reports) &&
+      {!loading && isEmpty(reports) && (
+        <Alert status="info" w="500px">
+          <AlertIcon />
+          <Text>Tidak ada laporan!</Text>
+          <Spacer />
+          <Button colorScheme="facebook" variant="link" onClick={focusHandler}>
+            Buat baru
+          </Button>
+        </Alert>
+      )}
+      {(userInfo && !userInfo.isAdmin) || (userInfo && !userInfo.isOfficer) ? (
+        <ReportSender />
+      ) : null}
+      {!loading &&
+        !isEmpty(reports) &&
         reports.map((report) => <Post key={report._id} data={report} />)}
     </div>
-  ) : (
-    <Spinner my="6" size="lg" />
   );
 }
 

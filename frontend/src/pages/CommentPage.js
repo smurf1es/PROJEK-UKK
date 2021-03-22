@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { Spinner } from '@chakra-ui/spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReportById } from '../actions/reportActions';
-import { Flex } from '@chakra-ui/layout';
+import { Flex, Link, Spacer, Text } from '@chakra-ui/layout';
 import CommentItem from '../components/CommentItem';
 import CommentModal from '../components/CommentModal';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
+import { isEmpty } from 'lodash';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 const CommentPage = ({ history, match }) => {
   const reportId = match.params.id;
@@ -35,17 +37,36 @@ const CommentPage = ({ history, match }) => {
     <Spinner display="block" mt="6" mx="auto" size="md" />
   ) : (
     <Flex justifyContent="center" flexDirection="column" alignItems="center">
-      <CommentModal reportId={reportId} />
+      {(!isEmpty(userInfo) && userInfo.isAdmin) ||
+      (!isEmpty(userInfo) && userInfo.isOfficer) ? (
+        <CommentModal reportId={reportId} />
+      ) : null}
       {error && (
         <Alert w="250px" status="error">
           <AlertIcon />
           {error}
         </Alert>
       )}
-      {report &&
+      {report && report.comments.length === 0 ? (
+        <Alert my="4" w="500px" status="info">
+          <AlertIcon />
+          <Text>Tidak ada tanggapan pada laporan ini!</Text>
+          <Spacer />
+          <Link
+            fontWeight="bold"
+            color="facebook.800"
+            as={ReactRouterLink}
+            to="/"
+          >
+            Kembali
+          </Link>
+        </Alert>
+      ) : (
+        report &&
         report.comments.map((item) => (
           <CommentItem reportId={reportId} key={item._id} comment={item} />
-        ))}
+        ))
+      )}
     </Flex>
   );
 };
