@@ -24,6 +24,12 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  ADMIN_CREATE_REQUEST,
+  ADMIN_CREATE_SUCCESS,
+  ADMIN_CREATE_FAIL,
+  OFFICER_CREATE_REQUEST,
+  OFFICER_CREATE_SUCCESS,
+  OFFICER_CREATE_FAIL,
 } from '../constants/userConstants';
 
 export const login = (username, password) => async (dispatch) => {
@@ -96,6 +102,82 @@ export const register = (user) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createAdmin = (admin) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ADMIN_CREATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      '/api/users/register-admin',
+      admin,
+      config
+    );
+
+    dispatch({
+      type: ADMIN_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createOfficer = (officer) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: OFFICER_CREATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      '/api/users/register-officer',
+      officer,
+      config
+    );
+
+    dispatch({
+      type: OFFICER_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OFFICER_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

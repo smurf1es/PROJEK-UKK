@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const Header = lazy(() => import('./components/Header'));
 const Login = lazy(() => import('./pages/LoginPage'));
 const Register = lazy(() => import('./pages/RegisterPage'));
+const RegisterAdmin = lazy(() => import('./pages/RegisterAdminPage'));
+const RegisterOfficer = lazy(() => import('./pages/RegisterOfficerPage'));
 const Home = lazy(() => import('./pages/HomePage'));
 const NotFound = lazy(() => import('./pages/NotFoundPage'));
 const Comment = lazy(() => import('./pages/CommentPage'));
@@ -17,6 +19,8 @@ const App = () => {
         <Header />
         <Switch>
           <Route path="/officer" component={Officer} />
+          <Route path="/admin/create-officer" component={RegisterOfficer} />
+          <Route path="/admin/create-admin" component={RegisterAdmin} />
           <Route path="/admin" component={GenReport} />
           <Route path="/report/:id/comment" component={Comment} />
           <Route path="/login" component={Login} />

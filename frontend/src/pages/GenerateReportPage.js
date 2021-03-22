@@ -1,24 +1,28 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Chakra from '@chakra-ui/react';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import moment from 'moment';
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { table } from '../middleware/tableMiddleware';
+import { fetchReports } from '../actions/reportActions';
+import { isEmpty } from 'lodash';
 import AdminCards from '../components/AdminCards';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const GenerateReportPage = ({ history }) => {
+  const dispatch = useDispatch();
   const formatDate = moment(Date.now()).format('DD MMM YYYY');
   const reportList = useSelector((state) => state.reportList);
-  const { loading, error, reports } = reportList;
+  const { loading, reports } = reportList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading: loadingUserInfo, userInfo } = userLogin;
 
   useEffect(() => {
     if (!loadingUserInfo && !userInfo) history.push('/login');
-  }, [loadingUserInfo, history, userInfo]);
+    if (isEmpty(reports) && !loading) dispatch(fetchReports());
+  }, [loadingUserInfo, history, userInfo, dispatch, loading, reports]);
 
   const docDefinition = {
     pageSize: 'A4',

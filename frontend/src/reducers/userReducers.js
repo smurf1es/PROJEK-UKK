@@ -48,6 +48,54 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
+export const adminRegisterReducer = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case constants.ADMIN_CREATE_REQUEST:
+      return {
+        loading: true,
+      };
+    case constants.ADMIN_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        admin: payload,
+      };
+    case constants.ADMIN_CREATE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const officerRegisterReducer = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case constants.OFFICER_CREATE_REQUEST:
+      return {
+        loading: true,
+      };
+    case constants.OFFICER_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        officer: payload,
+      };
+    case constants.OFFICER_CREATE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
 export const userDetailsReducer = (state = { user: {} }, action) => {
   const { type, payload } = action;
 

@@ -64,6 +64,74 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Register a new admin
+// @route POST /api/users/register/admin
+// @access Public
+const registerAdmin = asyncHandler(async (req, res) => {
+  const { name, username, password } = req.body;
+  const userExists = await User.findOne({ username });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('Admin already exists');
+  }
+
+  const user = await User.create({
+    name,
+    username,
+    password,
+    isAdmin: true,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      isAdmin: user.isAdmin,
+      isOfficer: user.isOfficer,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+});
+
+// @desc Register a new officer
+// @route POST /api/users/register/officer
+// @access Public
+const registerOfficer = asyncHandler(async (req, res) => {
+  const { name, username, password } = req.body;
+  const userExists = await User.findOne({ username });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('Officer already exists');
+  }
+
+  const user = await User.create({
+    name,
+    username,
+    password,
+    isOfficer: true,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      isAdmin: user.isAdmin,
+      isOfficer: user.isOfficer,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+});
+
 // @desc GET all users
 // @route GET /api/users
 // @access Private
@@ -184,6 +252,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 export {
   authUser,
   registerUser,
+  registerAdmin,
+  registerOfficer,
   getUserProfile,
   updateUserProfile,
   getUsers,
