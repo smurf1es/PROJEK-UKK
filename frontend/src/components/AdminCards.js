@@ -34,7 +34,7 @@ export default function AdminCards() {
               </Chakra.Flex>
               <Chakra.StatNumber>
                 {!loading && !isEmpty(reports) ? (
-                  loading && reports.length
+                  reports.length
                 ) : (
                   <Text fontSize="sm">Belum ada laporan</Text>
                 )}
@@ -68,7 +68,7 @@ export default function AdminCards() {
               </Chakra.Flex>
               <Chakra.StatNumber>
                 {!loading && !isEmpty(reports) ? (
-                  loading && verifiedReports.length
+                  verifiedReports.length
                 ) : (
                   <Text fontSize="sm">Belum ada laporan</Text>
                 )}
@@ -102,7 +102,7 @@ export default function AdminCards() {
               </Chakra.Flex>
               <Chakra.StatNumber>
                 {!loading && !isEmpty(reports) ? (
-                  loading && doneReports.length
+                  doneReports.length
                 ) : (
                   <Text fontSize="sm">Belum ada laporan</Text>
                 )}
