@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       username: user.username,
       phoneNumber: user.phoneNumber,
+      isCivilian: user.isCivilian,
       isAdmin: user.isAdmin,
       isOfficer: user.isOfficer,
       token: generateToken(user._id),
@@ -45,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     nik,
     phoneNumber,
+    isCivilian: true,
   });
 
   if (user) {
@@ -54,6 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       username: user.username,
       phoneNumber: user.phoneNumber,
+      isCivilian: user.isCivilian,
       isAdmin: user.isAdmin,
       isOfficer: user.isOfficer,
       token: generateToken(user._id),

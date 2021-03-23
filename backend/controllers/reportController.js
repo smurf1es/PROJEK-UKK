@@ -85,8 +85,8 @@ const deleteReport = asyncHandler(async (req, res) => {
 });
 
 // @desc Set report to being processed
-// @route PUT /api/reports/:id
-// @access Private/Officer || Private/Admin
+// @route PUT /api/reports/admin/verify/:id
+// @access Private/Admin
 const setReportToBeingProcessed = asyncHandler(async (req, res) => {
   const report = await Report.findById(req.params.id);
 
@@ -101,10 +101,44 @@ const setReportToBeingProcessed = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Set report to being processed as an officer
+// @route PUT /api/reports/officer/verify/:id
+// @access Private/Officer
+const setReportToBeingProcessedAsOfficer = asyncHandler(async (req, res) => {
+  const report = await Report.findById(req.params.id);
+
+  if (report) {
+    report.reportStatus = 1;
+
+    const updatedReport = await report.save();
+    res.json(updatedReport);
+  } else {
+    res.status(404);
+    throw new Error('Report not found');
+  }
+});
+
 // @desc Set report to done
-// @route PUT /api/reports/:id
-// @access Private/Officer || Private/Admin
+// @route PUT /api/reports/admin/clear/:id
+// @access Private/Admin
 const setReportToDone = asyncHandler(async (req, res) => {
+  const report = await Report.findById(req.params.id);
+
+  if (report) {
+    report.reportStatus = 2;
+
+    const updatedReport = await report.save();
+    res.json(updatedReport);
+  } else {
+    res.status(404);
+    throw new Error('Report not found');
+  }
+});
+
+// @desc Set report to done
+// @route PUT /api/reports/officer/clear/:id
+// @access Private/Officer
+const setReportToDoneAsOfficer = asyncHandler(async (req, res) => {
   const report = await Report.findById(req.params.id);
 
   if (report) {
@@ -182,4 +216,6 @@ export {
   deleteReport,
   setReportToBeingProcessed,
   setReportToDone,
+  setReportToBeingProcessedAsOfficer,
+  setReportToDoneAsOfficer,
 };

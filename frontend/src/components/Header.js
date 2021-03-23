@@ -27,20 +27,28 @@ const Header = () => {
             <>
               {userInfo.isAdmin && (
                 <>
-                  <Link className="mr-3" to="/admin">
+                  <Link as={ReactRouterLink} className="mr-3" to="/admin">
                     Admin
                   </Link>
-                  <Link className="mr-3" to="/admin/create-admin">
-                    Create Admin
+                  <Link
+                    as={ReactRouterLink}
+                    className="mr-3"
+                    to="/admin/create-admin"
+                  >
+                    Buat Admin
                   </Link>
-                  <Link className="mr-3" to="/admin/create-officer">
-                    Create Officer
+                  <Link
+                    as={ReactRouterLink}
+                    className="mr-3"
+                    to="/admin/create-officer"
+                  >
+                    Buat Petugas
                   </Link>
                 </>
               )}
               {userInfo.isOfficer && (
-                <Link className="mr-3" to="/officer">
-                  Officer
+                <Link as={ReactRouterLink} className="mr-3" to="/officer">
+                  Petugas
                 </Link>
               )}
               <Button color="white" variant="outline" onClick={logoutHandler}>
@@ -49,8 +57,10 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/register" className="ml-3">
+              <Link as={ReactRouterLink} to="/login">
+                Login
+              </Link>
+              <Link as={ReactRouterLink} to="/register" className="ml-3">
                 Register
               </Link>
             </>

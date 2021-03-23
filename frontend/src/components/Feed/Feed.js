@@ -4,8 +4,7 @@ import './Feed.css';
 import ReportSender from '../ReportSender/ReportSender';
 import Post from '../Post/Post';
 import { fetchReports } from '../../actions/reportActions';
-import { Spinner } from '@chakra-ui/spinner';
-import { isEmpty, isNil } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { Spacer, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
@@ -27,23 +26,34 @@ function Feed() {
   }, [dispatch]);
 
   return (
-    <div className="feed">
-      {!loading && isEmpty(reports) && (
-        <Alert status="info" w="500px">
-          <AlertIcon />
-          <Text>Tidak ada laporan!</Text>
-          <Spacer />
-          <Button colorScheme="facebook" variant="link" onClick={focusHandler}>
-            Buat baru
-          </Button>
-        </Alert>
-      )}
-      {userInfo && isNil(userInfo.isAdmin) && <ReportSender />}
-      {userInfo && isNil(userInfo.isOfficer) && <ReportSender />}
-      {!loading &&
-        !isEmpty(reports) &&
-        reports.map((report) => <Post key={report._id} data={report} />)}
-    </div>
+    !isEmpty(userInfo) && (
+      <div className="feed">
+        {!loading && isEmpty(reports) && !userInfo.isCivilian && (
+          <Alert mx="auto" status="info" w="500px">
+            <AlertIcon />
+            <Text>Tidak ada laporan!</Text>
+          </Alert>
+        )}
+        {!loading && isEmpty(reports) && userInfo.isCivilian && (
+          <Alert status="info" w="500px">
+            <AlertIcon />
+            <Text>Tidak ada laporan!</Text>
+            <Spacer />
+            <Button
+              colorScheme="facebook"
+              variant="link"
+              onClick={focusHandler}
+            >
+              Buat baru
+            </Button>
+          </Alert>
+        )}
+        {userInfo.isCivilian && <ReportSender />}
+        {!loading &&
+          !isEmpty(reports) &&
+          reports.map((report) => <Post key={report._id} data={report} />)}
+      </div>
+    )
   );
 }
 

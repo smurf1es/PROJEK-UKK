@@ -33,14 +33,11 @@ const CommentPage = ({ history, match }) => {
     if (successDelete) dispatch(fetchReportById(reportId));
   }, [dispatch, reportId, successComment, successDelete, history, userInfo]);
 
-  return loading ? (
+  return loading && !isEmpty(userInfo) ? (
     <Spinner display="block" mt="6" mx="auto" size="md" />
   ) : (
     <Flex justifyContent="center" flexDirection="column" alignItems="center">
-      {(!isEmpty(userInfo) && userInfo.isAdmin) ||
-      (!isEmpty(userInfo) && userInfo.isOfficer) ? (
-        <CommentModal reportId={reportId} />
-      ) : null}
+      {!userInfo.isCivilian && <CommentModal reportId={reportId} />}
       {error && (
         <Alert w="250px" status="error">
           <AlertIcon />

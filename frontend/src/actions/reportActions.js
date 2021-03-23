@@ -259,7 +259,7 @@ export const setReportToBeingProcessed = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.put(`/api/reports/verify/${id}`, {}, config);
+    await axios.put(`/api/reports/admin/verify/${id}`, {}, config);
 
     dispatch({
       type: constants.REPORT_TO_BEING_PROCESSED_SUCCESS,
@@ -291,7 +291,74 @@ export const setReportToDone = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.put(`/api/reports/clear/${id}`, {}, config);
+    await axios.put(`/api/reports/admin/clear/${id}`, {}, config);
+
+    dispatch({
+      type: constants.REPORT_TO_DONE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: constants.REPORT_TO_DONE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const setReportToBeingProcessedAsOfficer = (id) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: constants.REPORT_TO_BEING_PROCESSED_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`/api/reports/officer/verify/${id}`, {}, config);
+
+    dispatch({
+      type: constants.REPORT_TO_BEING_PROCESSED_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: constants.REPORT_TO_BEING_PROCESSED_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const setReportToDoneAsOfficer = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: constants.REPORT_TO_DONE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`/api/reports/officer/clear/${id}`, {}, config);
 
     dispatch({
       type: constants.REPORT_TO_DONE_SUCCESS,

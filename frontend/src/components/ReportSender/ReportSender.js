@@ -5,9 +5,9 @@ import { Button, IconButton } from '@material-ui/core';
 import { Check, PhotoCamera } from '@material-ui/icons';
 import { isEmpty } from 'lodash';
 import './ReportSender.css';
-import { Avatar } from '@material-ui/core';
 import axios from 'axios';
 import { Spinner } from '@chakra-ui/spinner';
+import { Avatar } from '@chakra-ui/react';
 
 function MessageSender() {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ function MessageSender() {
   return (
     <div className="messageSender">
       <div className="messageSender__top">
-        <Avatar src={userInfo.avatar} />
+        <Avatar name={userInfo.name} />
         <form>
           <input
             value={description}

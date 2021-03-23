@@ -5,10 +5,11 @@ import moment from 'moment';
 import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 import AssistantIcon from '@material-ui/icons/Assistant';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import { Text } from '@chakra-ui/react';
 
 export default function AdminCards() {
   const reportList = useSelector((state) => state.reportList);
-  const { reports } = reportList;
+  const { loading, reports } = reportList;
 
   const verifiedReports = reports.filter((report) => report.reportStatus === 1);
   const doneReports = reports.filter((report) => report.reportStatus === 2);
@@ -32,10 +33,10 @@ export default function AdminCards() {
                 </Chakra.Box>
               </Chakra.Flex>
               <Chakra.StatNumber>
-                {!isEmpty(reports) ? (
-                  reports.length
+                {!loading && !isEmpty(reports) ? (
+                  loading && reports.length
                 ) : (
-                  <Chakra.Spinner size="sm" />
+                  <Text fontSize="sm">Belum ada laporan</Text>
                 )}
               </Chakra.StatNumber>
               <Chakra.StatHelpText textAlign="right">
@@ -66,10 +67,10 @@ export default function AdminCards() {
                 </Chakra.Box>
               </Chakra.Flex>
               <Chakra.StatNumber>
-                {!isEmpty(reports) ? (
-                  verifiedReports.length
+                {!loading && !isEmpty(reports) ? (
+                  loading && verifiedReports.length
                 ) : (
-                  <Chakra.Spinner size="sm" />
+                  <Text fontSize="sm">Belum ada laporan</Text>
                 )}
               </Chakra.StatNumber>
               <Chakra.StatHelpText textAlign="right">
@@ -100,10 +101,10 @@ export default function AdminCards() {
                 </Chakra.Box>
               </Chakra.Flex>
               <Chakra.StatNumber>
-                {!isEmpty(reports) ? (
-                  doneReports.length
+                {!loading && !isEmpty(reports) ? (
+                  loading && doneReports.length
                 ) : (
-                  <Chakra.Spinner size="sm" />
+                  <Text fontSize="sm">Belum ada laporan</Text>
                 )}
               </Chakra.StatNumber>
               <Chakra.StatHelpText textAlign="right">
