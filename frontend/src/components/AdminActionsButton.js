@@ -17,13 +17,13 @@ const AdminActionsButton = ({ report, verifyHandler, setToDoneHandler }) => {
         variant="solid"
       >
         {(report.index === 0 && (
-          <div className="d-flex align-items-center">
+          <div className="flex items-center">
             <CheckIcon />
             <p className="ml-2">Verifikasikan</p>
           </div>
         )) ||
           (report.index === 1 && (
-            <div className="d-flex align-items-center">
+            <div className="flex items-center">
               <CheckIcon />
               <p className="ml-2">Selesaikan</p>
             </div>

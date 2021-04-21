@@ -69,7 +69,7 @@ function MessageSender() {
             <input
               accept="image/*"
               onChange={handleImageUpload}
-              className="d-none"
+              className="hidden"
               id="icon-button-file"
               type="file"
             />
@@ -96,7 +96,7 @@ function MessageSender() {
               </label>
             )}
             <input
-              className="d-none"
+              className="hidden"
               value={image}
               disabled={true}
               onChange={(e) => setImage(e.target.value)}

@@ -135,6 +135,7 @@ function Post({
             <div className="post__options">
               <Tooltip title="Klik untuk menuju halaman komentar">
                 <Box
+                  _hover={{ textDecoration: 'none', color: 'inherit' }}
                   as={ReactRouterLink}
                   to={`/report/${_id}/comment`}
                   className="post__option"

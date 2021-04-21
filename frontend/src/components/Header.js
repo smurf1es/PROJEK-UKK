@@ -7,6 +7,9 @@ import { logout } from '../actions/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const black = {
+    color: '#000',
+  };
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -18,19 +21,26 @@ const Header = () => {
   return (
     <Flex w="100" color="white" h="75px" bg="facebook.500">
       <Container alignItems="center" d="flex" maxW="6xl">
-        <Link as={ReactRouterLink} to="/">
+        <Link _hover={black} as={ReactRouterLink} to="/">
           <Heading size="md">Lapor.in</Heading>
         </Link>
         <Spacer />
         <Flex alignItems="center">
+          {userInfo && <p className="mr-3 font-bold">{userInfo.name}</p>}
           {userInfo ? (
             <>
               {userInfo.isAdmin && (
                 <>
-                  <Link as={ReactRouterLink} className="mr-3" to="/admin">
+                  <Link
+                    _hover={black}
+                    as={ReactRouterLink}
+                    className="mr-3"
+                    to="/admin"
+                  >
                     Admin
                   </Link>
                   <Link
+                    _hover={black}
                     as={ReactRouterLink}
                     className="mr-3"
                     to="/admin/create-admin"
@@ -38,6 +48,7 @@ const Header = () => {
                     Buat Admin
                   </Link>
                   <Link
+                    _hover={black}
                     as={ReactRouterLink}
                     className="mr-3"
                     to="/admin/create-officer"
@@ -47,20 +58,35 @@ const Header = () => {
                 </>
               )}
               {userInfo.isOfficer && (
-                <Link as={ReactRouterLink} className="mr-3" to="/officer">
+                <Link
+                  _hover={black}
+                  as={ReactRouterLink}
+                  className="mr-3"
+                  to="/officer"
+                >
                   Petugas
                 </Link>
               )}
-              <Button color="white" variant="outline" onClick={logoutHandler}>
+              <Button
+                _hover={black}
+                color="white"
+                variant="outline"
+                onClick={logoutHandler}
+              >
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Link as={ReactRouterLink} to="/login">
+              <Link _hover={black} as={ReactRouterLink} to="/login">
                 Login
               </Link>
-              <Link as={ReactRouterLink} to="/register" className="ml-3">
+              <Link
+                _hover={black}
+                as={ReactRouterLink}
+                to="/register"
+                className="ml-3"
+              >
                 Register
               </Link>
             </>
